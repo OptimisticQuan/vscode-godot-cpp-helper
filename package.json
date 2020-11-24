@@ -1,6 +1,6 @@
 {
-	"name": "cpp-helper",
-	"displayName": "C++ Helper",
+	"name": "godot-cpp-helper",
+	"displayName": "Godot C++ Helper",
 	"description": "Create implementation for c++ function prototypes.",
 	"version": "0.2.0",
 	"icon": "images/icon.png",
@@ -12,67 +12,125 @@
 		"Other"
 	],
 	"activationEvents": [
-		"onCommand:cpp-helper.create-implementation",
-		"onCommand:cpp-helper.create-implementation-here",
-		"onCommand:cpp-helper.copy-implementation",
-		"onCommand:cpp-helper.create-header-guard",
+		"onCommand:godot-cpp-helper.create-implementation",
+		"onCommand:godot-cpp-helper.create-implementation-here",
+		"onCommand:godot-cpp-helper.copy-implementation",
+		"onCommand:godot-cpp-helper.create-header-guard",
 		"onLanguage:cpp",
 		"onLanguage:c"
 	],
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/amir9480/vscode-cpp-helper"
+		"url": "https://github.com/OptimisticQuan/vscode-godot-cpp-helper"
 	},
 	"main": "./out/extension.js",
 	"contributes": {
 		"commands": [
 			{
-				"command": "cpp-helper.create-implementation",
+				"command": "godot-cpp-helper.create-implementation",
 				"title": "Create Implementation"
 			},
 			{
-				"command": "cpp-helper.create-implementation-here",
+				"command": "godot-cpp-helper.create-implementation-here",
 				"title": "Create Implementation Here"
 			},
 			{
-				"command": "cpp-helper.copy-implementation",
+				"command": "godot-cpp-helper.copy-implementation",
 				"title": "Copy Implementation"
 			},
 			{
-				"command": "cpp-helper.create-header-guard",
+				"command": "godot-cpp-helper.create-header-guard",
 				"title": "Create Header Guard"
+			},
+			{
+				"command": "godot-cpp-helper.copy-getter-and-setter",
+				"title": "Copy Getter And Setter"
+			},
+			{
+				"command": "godot-cpp-helper.create-bind-method",
+				"title": "Create Bind Method"
+			},
+			{
+				"command": "godot-cpp-helper.copy-bind-method",
+				"title": "Copy Bind Method"
+			},
+			{
+				"command": "godot-cpp-helper.copy-bind-method-code",
+				"title": "Copy Bind Method Code"
+			},
+			{
+				"command": "godot-cpp-helper.copy-add-property",
+				"title": "Copy Add Property"
 			}
 		],
 		"menus": {
 			"editor/context": [
 				{
-					"when": "resourceLangId =~ /^c|cpp$/ && config.CppHelper.ContextCreateImplementation",
-					"command": "cpp-helper.create-implementation",
-					"group": "C++ Helper@1"
+					"when": "resourceLangId =~ /^c|cpp$/ && config.GodotCppHelper.Context",
+					"group": "Godot C++ Helper@1",
+					"submenu": "godot-cpp-helper.context-menu"
+				}
+			],
+			"godot-cpp-helper.context-menu": [
+				{
+					"when": "resourceLangId =~ /^c|cpp$/ && config.GodotCppHelper.ContextCreateImplementation",
+					"command": "godot-cpp-helper.create-implementation",
+					"group": "Godot C++ Helper@1"
 				},
 				{
-					"when": "resourceLangId =~ /^c|cpp$/ && config.CppHelper.ContextCreateImplementationHere",
-					"command": "cpp-helper.create-implementation-here",
-					"group": "C++ Helper@2"
+					"when": "resourceLangId =~ /^c|cpp$/ && config.GodotCppHelper.ContextCreateImplementationHere",
+					"command": "godot-cpp-helper.create-implementation-here",
+					"group": "Godot C++ Helper@2"
 				},
 				{
-					"when": "resourceLangId =~ /^c|cpp$/ && config.CppHelper.ContextCopyImplementation",
-					"command": "cpp-helper.copy-implementation",
-					"group": "C++ Helper@3"
+					"when": "resourceLangId =~ /^c|cpp$/ && config.GodotCppHelper.ContextCopyImplementation",
+					"command": "godot-cpp-helper.copy-implementation",
+					"group": "Godot C++ Helper@3"
 				},
 				{
-					"when": "resourceLangId =~ /^c|cpp$/ && config.CppHelper.ContextCreateHeaderGuard",
-					"command": "cpp-helper.create-header-guard",
-					"group": "C++ Helper@4"
+					"when": "resourceLangId =~ /^c|cpp$/ && config.GodotCppHelper.ContextCreateHeaderGuard",
+					"command": "godot-cpp-helper.create-header-guard",
+					"group": "Godot C++ Helper@4"
+				},
+				{
+					"when": "resourceLangId =~ /^c|cpp$/",
+					"command": "godot-cpp-helper.copy-getter-and-setter",
+					"group": "Godot C++ Helper@5"
+				},
+				{
+					"when": "resourceLangId =~ /^c|cpp$/",
+					"command": "godot-cpp-helper.create-bind-method",
+					"group": "Godot C++ Helper@6"
+				},
+				{
+					"when": "resourceLangId =~ /^c|cpp$/",
+					"command": "godot-cpp-helper.copy-bind-method",
+					"group": "Godot C++ Helper@7"
+				},
+				{
+					"when": "resourceLangId =~ /^c|cpp$/",
+					"command": "godot-cpp-helper.copy-bind-method-code",
+					"group": "Godot C++ Helper@8"
+				},
+				{
+					"when": "resourceLangId =~ /^c|cpp$/",
+					"command": "godot-cpp-helper.copy-add-property",
+					"group": "Godot C++ Helper@9"
 				}
 			]
 		},
+		"submenus": [
+			{
+				"id": "godot-cpp-helper.context-menu",
+				"label": "Godot Cpp Helper"
+			}
+		],
 		"configuration": [
 			{
-				"title": "C++ Helper",
+				"title": "Godot C++ Helper",
 				"type": "object",
 				"properties": {
-					"CppHelper.SourcePattern": {
+					"GodotCppHelper.SourcePattern": {
 						"type": "array",
 						"default": [
 							"{FILE}.inl",
@@ -96,32 +154,37 @@
 						],
 						"description": "Source file pattern for headers."
 					},
-					"CppHelper.HeaderGuardPattern": {
+					"GodotCppHelper.HeaderGuardPattern": {
 						"type": "string",
 						"default": "__{FILE}_H__",
 						"description": "Header Guard Style."
 					},
-					"CppHelper.ContextCreateImplementation": {
+					"GodotCppHelper.Context": {
+						"type": "boolean",
+						"default": true,
+						"description": "Show context menu"
+					},
+					"GodotCppHelper.ContextCreateImplementation": {
 						"type": "boolean",
 						"default": true,
 						"description": "Show \"Create Implementation\" in context menu"
 					},
-					"CppHelper.ContextCreateImplementationHere": {
+					"GodotCppHelper.ContextCreateImplementationHere": {
 						"type": "boolean",
 						"default": true,
 						"description": "Show \"Create Implementation Here\" in context menu"
 					},
-					"CppHelper.ContextCopyImplementation": {
+					"GodotCppHelper.ContextCopyImplementation": {
 						"type": "boolean",
 						"default": true,
 						"description": "Show \"Copy Implementation\" in context menu"
 					},
-					"CppHelper.ContextCreateHeaderGuard": {
+					"GodotCppHelper.ContextCreateHeaderGuard": {
 						"type": "boolean",
 						"default": true,
 						"description": "Show \"Create Header Guard\" in context menu"
 					},
-					"CppHelper.SourceNotFoundBehavior": {
+					"GodotCppHelper.SourceNotFoundBehavior": {
 						"type": "string",
 						"enum": [
 							"Implement in same file",

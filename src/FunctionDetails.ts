@@ -48,8 +48,35 @@ export default class FunctionDetails {
         out += this.name + '(' + Helpers.removeArgumentDefault(this.arguments) + ') ' + after;
 
         if (includeBody) {
-            out += '\n{\n' + (snippet ? Helpers.spacer() + '${0}' : '') + '\n}';
+            out += ' {\n' + (snippet ? Helpers.spacer() + '${0}' : '') + '\n}';
         }
+        return out;
+    }
+// ClassDB::bind_method(D_METHOD("get_supported_type_list"), &IGCEASValueProvider::get_supported_type_list);
+    public generateBind() {
+        if (this.class == null)
+        {
+            return "";
+        }
+        let out = 'ClassDB::bind_method(D_METHOD("';
+        out += this.name;
+        out += '"';
+        let argsStr = Helpers.removeArgumentDefault(this.arguments)
+        let argSS = argsStr.split(",")
+        for (let i=0; i<argSS.length; i++)
+        {
+            let ss = argSS[i].trim().split(' ');
+            let argName = ss[ss.length - 1];
+            argName = argName.replace(/\*|\&/g, "").trim();
+            if (argName.startsWith("p_"))
+            {
+                argName = argName.substr(2);
+            }
+            out += ", ";
+            out += '"' + argName + '"';
+        }
+        out += '), &';
+        out += this.class.getNestedName() + "::" + this.name + ");";
         return out;
     }
 

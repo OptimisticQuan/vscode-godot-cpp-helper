@@ -9,12 +9,12 @@ C++ Helper extension for [VSCode](https://code.visualstudio.com/).
 
 ## Configuration
 
-### CppHelper.SourcePattern:
+### GodotCppHelper.SourcePattern:
 The array of possible patterns to find the source of a header file.
 
 Example:
 ```json
-"CppHelper.SourcePattern": [
+"GodotCppHelper.SourcePattern": [
     "{FILE}.cpp",
     "{FILE}.c",
     "{FILE}.inl",
@@ -24,27 +24,27 @@ Example:
 Where {FILE} is your active header file name.
 > If you don't want a relative pattern then put a `/` as first character.
 
-### CppHelper.HeaderGuardPattern:
+### GodotCppHelper.HeaderGuardPattern:
 The pattern of header guard.
 Example:
 ```json
-"CppHelper.HeaderGuardPattern": "{FILE}_H"
+"GodotCppHelper.HeaderGuardPattern": "{FILE}_H"
 ```
 Where {FILE} is your active header file name in UPPERCASE format.
 
-### CppHelper.ContextCreateImplementation
+### GodotCppHelper.ContextCreateImplementation
 Show or hide "Create Implementation" in context menu.
 
-### CppHelper.ContextCreateImplementationHere
+### GodotCppHelper.ContextCreateImplementationHere
 Show or hide "Create Implementation Here" in context menu.
 
-### CppHelper.ContextCopyImplementation
+### GodotCppHelper.ContextCopyImplementation
 Show or hide "Copy Implementation" in context menu.
 
-### CppHelper.ContextCreateHeaderGuard
+### GodotCppHelper.ContextCreateHeaderGuard
 Show or hide "Create Header Guard" in context menu.
 
-### CppHelper.SourceNotFoundBehavior
+### GodotCppHelper.SourceNotFoundBehavior
 What happen if source file of a header file not found.
 * Implement in same file
 * Create source file

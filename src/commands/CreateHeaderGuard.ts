@@ -5,7 +5,7 @@ export default function () {
     if (vscode.window.activeTextEditor && vscode.window.activeTextEditor.selection) {
         let fileName = vscode.window.activeTextEditor?.document.fileName;
         let name = fileName.replace(/^.*[\\\/]/, '').replace(/\.[^\.]+$/, '');
-        let headerGuard: any = vscode.workspace.getConfiguration("CppHelper").get<string>('HeaderGuardPattern');
+        let headerGuard: any = vscode.workspace.getConfiguration("GodotCppHelper").get<string>('HeaderGuardPattern');
         headerGuard = headerGuard.replace('{FILE}', name.toUpperCase());
         if (vscode.window.activeTextEditor) {
             vscode.window.activeTextEditor.insertSnippet(new vscode.SnippetString('\n#endif // ' + headerGuard), vscode.window.activeTextEditor.document.positionAt(vscode.window.activeTextEditor.document.getText().length));

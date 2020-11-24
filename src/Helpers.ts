@@ -69,8 +69,8 @@ export default class Helpers {
      * Opens source file of a active header file editor.
      */
     public static openSourceFile(): Promise<vscode.TextEditor> {
-        let patterns: any = vscode.workspace.getConfiguration("CppHelper").get<Array<string>>('SourcePattern');
-        let notFoundBehavior: any = vscode.workspace.getConfiguration("CppHelper").get<string>('SourceNotFoundBehavior');
+        let patterns: any = vscode.workspace.getConfiguration("GodotCppHelper").get<Array<string>>('SourcePattern');
+        let notFoundBehavior: any = vscode.workspace.getConfiguration("GodotCppHelper").get<string>('SourceNotFoundBehavior');
         return new Promise(function (resolve, reject) {
             let fileName = vscode.window.activeTextEditor?.document.fileName;
             if (fileName) {
