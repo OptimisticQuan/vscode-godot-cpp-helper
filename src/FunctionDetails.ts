@@ -8,6 +8,7 @@ export default class FunctionDetails {
     public after: string = "";
     public template: string = "";
     public arguments: string = "";
+    public implement: boolean = false;
     public class:ClassDetails|null = null;
     public namespace:NamespaceDetails|null = null;
     public start: number = -1;
@@ -62,18 +63,21 @@ export default class FunctionDetails {
         out += this.name;
         out += '"';
         let argsStr = Helpers.removeArgumentDefault(this.arguments)
-        let argSS = argsStr.split(",")
-        for (let i=0; i<argSS.length; i++)
-        {
-            let ss = argSS[i].trim().split(' ');
-            let argName = ss[ss.length - 1];
-            argName = argName.replace(/\*|\&/g, "").trim();
-            if (argName.startsWith("p_"))
+        argsStr = argsStr.trim();
+        if (argsStr.length != 0) {
+            let argSS = argsStr.split(",")
+            for (let i=0; i<argSS.length; i++)
             {
-                argName = argName.substr(2);
+                let ss = argSS[i].trim().split(' ');
+                let argName = ss[ss.length - 1];
+                argName = argName.replace(/\*|\&/g, "").trim();
+                if (argName.startsWith("p_"))
+                {
+                    argName = argName.substr(2);
+                }
+                out += ", ";
+                out += '"' + argName + '"';
             }
-            out += ", ";
-            out += '"' + argName + '"';
         }
         out += '), &';
         out += this.class.getNestedName() + "::" + this.name + ");";
@@ -118,7 +122,7 @@ export default class FunctionDetails {
         let returnTypeRegex = "((([\\w_][\\w\\d<>_\\[\\]\\.:\,]*\\s+)*[\\w_][\\w\\d<>_\\[\\]\\(\\)\\.:\,]*)(\\**\\&{0,2}))?";
         let funcRegex = "((\\**\\&{0,2})((operator\\s*([+-=*\\/%!<>&|~\\[\\]^&\\.\\,]\\s*|\\(\\))+)|(~?[\\w_][\\w\\d_]*)))";
         let funcParamsRegex = "\\((([^\\)]*)|(.+\\([^\\)]*\\).+))\\)";
-        let afterParamsRegex = "([^;^)]*)\\;";
+        let afterParamsRegex = "([^;^)]*)[\\{;]";
 
         let funcRegexStr = templateRegex + returnTypeRegex + '\\s+' + funcRegex + '\\s*' + funcParamsRegex + '\\s*' + afterParamsRegex;
         let regex = new RegExp(funcRegexStr, 'gm');
